@@ -1,0 +1,16 @@
+{
+  "name": "WaniKani-Sheet-Generator",
+  "version": "0.0.1",
+  "description": "Generate learning sheets from WaniKani",
+  "main": "src/index.ts",
+  "repository": "https://github.com/loicpirez/WaniKani-Sheet-Generator",
+  "author": "Loïc PIREZ",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "typescript": "^5.2.2"
+  }
+}

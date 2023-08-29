@@ -1,3 +1,4 @@
+cache/*.json
 .env
 dist/*.js
 lib-cov

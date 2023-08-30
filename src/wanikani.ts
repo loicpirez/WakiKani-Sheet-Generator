@@ -20,51 +20,57 @@ class WaniKani implements WaniKaniInterface {
   }
 
   async fetchAllPages<T extends Record<string, any>>(
-    startPageUrl: string
+    endpoint: string, cacheName: string, perPage: number = 500
   ): Promise<T[]> {
+    const startPageUrl = `${endpoint}?per_page=${perPage}`
+
+    const cachedData: T[] = this.cache.getItem(cacheName)
+    const cachedDataDate: string = this.cache.getItem(`${cacheName}_date`)
+    const cachedDataEtag: string = this.cache.getItem(`${cacheName}_etag`)
+
     let pages: T[] = []
     let nextPageUrl: string | null = startPageUrl
 
     while (nextPageUrl != null) {
-      const response: AxiosResponse<T> = await this.instance.get<T>(nextPageUrl)
-      pages = pages.concat(response.data.data)
-      nextPageUrl = response.data.pages?.next_url ?? null
+      const response: AxiosResponse<T> = await this.instance.get<T>(nextPageUrl, {
+        headers: {
+          'If-Modified-Since': cachedDataDate,
+          'If-None-Match': cachedDataEtag
+        },
+        validateStatus: function (status) {
+          return (status >= 200 && status < 300) || status === 304
+        }
+
+      })
+
+      if (response.status === 200) {
+        console.log('Fetching new page...')
+        pages = pages.concat(response.data.data)
+        nextPageUrl = response.data.pages?.next_url ?? null
+        this.cache.setItem(cacheName, pages)
+        this.cache.setItem(`${cacheName}_date`, response.headers['last-modified'])
+        this.cache.setItem(`${cacheName}_etag`, response.headers.etag)
+      } else if (response.status === 304) {
+        console.log('Using cache...')
+        pages = pages.concat(cachedData)
+        nextPageUrl = null
+      }
     }
 
     return pages
   }
 
-  async fetchCachedData<T extends Record<string, any>>(
-    endpoint: string, cacheName: string, perPage: number = 500
-  ): Promise<T[]> {
-    const startPageUrl = `${endpoint}?per_page=${perPage}`
-
-    let cachedData: T[] = this.cache.getItem(cacheName)
-
-    if (cachedData === null || cachedData === undefined) {
-      console.log(`Fetching data for [${endpoint}]...`)
-      cachedData = await this.fetchAllPages(startPageUrl)
-      this.cache.setItem(cacheName, cachedData)
-      console.log('Data inserted into cache.')
-    } else {
-      console.log(`Using cached data for [${endpoint}].`)
-    }
-    return cachedData
-  }
-
-  // @TODO: conditional cached fetch
-
   async getSubjects (): Promise<WKSubject[]> {
     const endpoint = '/subjects'
     const subjects: WKSubject[] =
-      await this.fetchCachedData<WKSubject>(endpoint, 'subjects')
+      await this.fetchAllPages<WKSubject>(endpoint, 'subjects')
     return subjects
   }
 
   async getAssignments (): Promise<WKAssignment[]> {
     const endpoint = '/assignments'
     const assignments: WKAssignment[] =
-      await this.fetchCachedData<WKAssignment>(endpoint, 'assignments')
+      await this.fetchAllPages<WKAssignment>(endpoint, 'assignments')
     return assignments
   }
 }

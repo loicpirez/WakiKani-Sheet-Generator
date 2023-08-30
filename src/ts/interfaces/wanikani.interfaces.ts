@@ -7,9 +7,6 @@ interface WaniKaniInterface {
   instance: AxiosInstance
   cache: LocalCache
   fetchAllPages: <T extends Record<string, any>>(
-    startPageUrl: string
-  ) => Promise<T[]>
-  fetchCachedData: <T extends Record<string, any>>(
     endpoint: string, cacheName: string, perPage: number
   ) => Promise<T[]>
   getSubjects: () => Promise<WKSubject[]>

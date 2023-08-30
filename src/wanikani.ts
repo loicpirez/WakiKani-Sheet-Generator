@@ -1,7 +1,7 @@
 import type WaniKaniInterface from './ts/interfaces/wanikani.interfaces'
 import type WaniKaniConstructor from './ts/types/wanikani.types'
 import axios, { type AxiosResponse, type AxiosInstance } from 'axios'
-import type { WKAssignment, WKLevelProgression, WKLevelProgressionCollection, WKSubject, WKSummary } from '@bachmacintosh/wanikani-api-types'
+import type { WKAssignment, WKSubject } from '@bachmacintosh/wanikani-api-types'
 import LocalCache from 'node-localcache'
 
 class WaniKani implements WaniKaniInterface {

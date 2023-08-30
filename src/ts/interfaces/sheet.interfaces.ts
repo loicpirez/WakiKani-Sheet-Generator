@@ -20,4 +20,9 @@ interface SheetVocabularyElement extends SheetBaseElement {
   composition: Array<string | null | undefined> | undefined
 }
 
-export type { SheetBaseElement, SheetVocabularyElement }
+interface SheetInterface {
+  kanjis: SheetBaseElement[]
+  vocabularies: SheetVocabularyElement[]
+}
+
+export type { SheetBaseElement, SheetVocabularyElement, SheetInterface }

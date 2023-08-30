@@ -1,4 +1,4 @@
-import { type WKLevelProgressionCollection, type WKLevelProgression, type WKSubjectCollection, type WKSummary, type WKAssignmentCollection, type WKAssignment, type WKSubject } from '@bachmacintosh/wanikani-api-types'
+import { type WKAssignment, type WKSubject } from '@bachmacintosh/wanikani-api-types'
 import { type AxiosInstance } from 'axios'
 import type LocalCache from 'node-localcache'
 

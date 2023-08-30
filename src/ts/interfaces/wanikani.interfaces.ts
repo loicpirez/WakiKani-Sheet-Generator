@@ -1,4 +1,4 @@
-import { type WKLevelProgressionCollection, type WKLevelProgression, type WKSubjectCollection } from '@bachmacintosh/wanikani-api-types'
+import { type WKLevelProgressionCollection, type WKLevelProgression, type WKSubjectCollection, type WKSummary, type WKAssignmentCollection, type WKAssignment, type WKSubject } from '@bachmacintosh/wanikani-api-types'
 import { type AxiosInstance } from 'axios'
 import type LocalCache from 'node-localcache'
 
@@ -12,9 +12,8 @@ interface WaniKaniInterface {
   fetchCachedData: <T extends Record<string, any>>(
     endpoint: string, cacheName: string, perPage: number
   ) => Promise<T[]>
-  getProgressions: () => Promise<WKLevelProgressionCollection>
-  getProgression: (id: string) => Promise<WKLevelProgression>
-  getSubjects: () => Promise<WKSubjectCollection[]>
+  getSubjects: () => Promise<WKSubject[]>
+  getAssignments: () => Promise<WKAssignment[]>
 }
 
 export default WaniKaniInterface

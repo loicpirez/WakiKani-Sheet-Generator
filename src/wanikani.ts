@@ -1,7 +1,7 @@
 import type WaniKaniInterface from './ts/interfaces/wanikani.interfaces'
 import type WaniKaniConstructor from './ts/types/wanikani.types'
 import axios, { type AxiosResponse, type AxiosInstance } from 'axios'
-import type { WKLevelProgression, WKLevelProgressionCollection, WKSubjectCollection } from '@bachmacintosh/wanikani-api-types'
+import type { WKAssignment, WKLevelProgression, WKLevelProgressionCollection, WKSubject, WKSummary } from '@bachmacintosh/wanikani-api-types'
 import LocalCache from 'node-localcache'
 
 class WaniKani implements WaniKaniInterface {
@@ -52,23 +52,20 @@ class WaniKani implements WaniKaniInterface {
     return cachedData
   }
 
-  async getProgressions (): Promise<WKLevelProgressionCollection> {
-    const endpoint = '/level_progressions'
-    const progressions = await this.instance.get(endpoint).then(res => res.data)
-    return progressions
-  }
+  // @TODO: conditional cached fetch
 
-  async getProgression (id: string): Promise<WKLevelProgression> {
-    const endpoint = `/level_progressions/${id}`
-    const progression = await this.instance.get(endpoint).then(res => res.data)
-    return progression
-  }
-
-  async getSubjects (): Promise<WKSubjectCollection[]> {
+  async getSubjects (): Promise<WKSubject[]> {
     const endpoint = '/subjects'
-    const subjects: WKSubjectCollection[] =
-      await this.fetchCachedData<WKSubjectCollection>(endpoint, 'subjects')
+    const subjects: WKSubject[] =
+      await this.fetchCachedData<WKSubject>(endpoint, 'subjects')
     return subjects
+  }
+
+  async getAssignments (): Promise<WKAssignment[]> {
+    const endpoint = '/assignments'
+    const assignments: WKAssignment[] =
+      await this.fetchCachedData<WKAssignment>(endpoint, 'assignments')
+    return assignments
   }
 }
 

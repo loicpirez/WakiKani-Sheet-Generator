@@ -1,7 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Cabin } from 'next/font/google'
-import Navbar from './components/Navbar'
+import ParentWrapper from './ParentWrapper'
 
 const font = Cabin({ subsets: ['latin'] })
 
@@ -19,11 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <div id="root" className='bg-slate-200 flex h-screen flex-col'>
-          <header className='pb-1'>
-            <Navbar />
-          </header>
+          <ParentWrapper>
             {children}
-          <footer></footer>
+          </ParentWrapper>
         </div>
       </body>
     </html>

@@ -54,6 +54,8 @@ class WaniKani implements WaniKaniInterface {
         console.log('Using cache...')
         pages = pages.concat(cachedData)
         nextPageUrl = null
+      } else {
+        throw new Error((response as any).message)
       }
     }
 

@@ -21,8 +21,7 @@ async function main (): Promise<void> {
       const sheet = await createSheet(wakinaki)
       res.json(sheet)
     })().catch(err => {
-      console.error(err)
-      res.status(500).json({ error: 'An error occurred while creating the sheet' })
+      res.status(500).json({ error: 'An error occurred while creating the sheet', message: err.message })
     })
   })
 

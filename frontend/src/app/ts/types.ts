@@ -25,14 +25,15 @@ type VocabularyElementType = BaseElementType & {
 type ApiResponseType = {
   kanjis: Array<BaseElementType>;
   vocabularies: Array<VocabularyElementType>;
-}
+} | null;
 
 type ApiErrorType = {
   message: string;
-}
+} | null;
 
 type DataContextType = {
   data: ApiResponseType;
   error: ApiErrorType;
   loading: boolean;
+  fetchData(): Promise<void>;
 }

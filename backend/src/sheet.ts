@@ -27,13 +27,15 @@ const createSheet = async (wakinaki: WaniKaniInterface): Promise<SheetInterface>
       kanjis.push(kanjiObject)
     } else if (assignment.data.subject_type === 'vocabulary') {
       const vocabularyObject = createObject(assignment, subjectById)
+
       const composition = subjectById?.data.component_subject_ids?.map(componentSubjectId => {
         return subjectsMap.get(componentSubjectId)?.data.characters
       })
 
       vocabularies.push({
         ...vocabularyObject,
-        composition
+        composition,
+        partsOfSpeech: subjectById?.data.parts_of_speech
       })
     }
   })

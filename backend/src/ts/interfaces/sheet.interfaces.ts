@@ -18,6 +18,7 @@ interface SheetBaseElement {
 
 interface SheetVocabularyElement extends SheetBaseElement {
   composition: Array<string | null | undefined> | undefined
+  partsOfSpeech: string[] | undefined
 }
 
 interface SheetInterface {

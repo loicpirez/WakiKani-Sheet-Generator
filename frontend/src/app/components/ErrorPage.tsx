@@ -1,5 +1,5 @@
 interface ErrorPageProps {
-  error: ApiErrorType;
+  error: any;
 }
 
 const ErrorPage = ({ error }: ErrorPageProps): JSX.Element => {

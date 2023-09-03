@@ -1,17 +1,18 @@
-'use client'
+"use client"
 
-import React, { createContext, useContext } from 'react';
-import { useContextContent } from './utils/Context';
+import React from 'react';
+import { useWakinakiDataContext } from './context/WakinakiData';
+import ErrorPage from './components/ErrorPage';
+import LoadingPage from './components/LoadingPage';
 
 const Home = (): JSX.Element => {
-    const data = useContextContent('data') as ApiResponseType
+    const { data, error, loading } = useWakinakiDataContext();
 
-    return <div className='grid h-screen place-items-center'>
-        {
-            data && <>Ready, loaded {data.kanjis.length} kanjis and {data.vocabularies.length} vocabularies from WakiNaki.</>
-        }
-    </div>;
+    return (
+        <div className='grid h-screen place-items-center'>
+            {error ? <ErrorPage error={error} /> : loading ? <LoadingPage /> : (data && <>Ready, loaded {data.kanjis.length} kanjis and {data.vocabularies.length} vocabularies from WakiNaki.</>)}
+        </div>
+    );
 }
-
 
 export default Home;

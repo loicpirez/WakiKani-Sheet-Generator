@@ -1,11 +1,10 @@
 "use client"
 
-import { useContextContent } from "../utils/Context";
+import { useWakinakiDataContext } from '../context/WakinakiData'
 import Link from 'next/link'
 
 const Navbar = (): JSX.Element => {
-  const loading = useContextContent('loading') as boolean
-  const fetchData = useContextContent('fetchData') as () => Promise<void>
+  const { loading, fetchData } = useWakinakiDataContext();
 
   return (
     <div className="navbar bg-base-100 shadow-sm">
@@ -19,20 +18,18 @@ const Navbar = (): JSX.Element => {
             <li><a>Kanji</a></li>
             <li><a>Vocabulary</a></li>
           </ul>}
-
-
         </div>
-        <a className="btn btn-ghost normal-case text-xl">WK Sheet Generator</a>
+        <Link className="btn btn-ghost normal-case text-xl" href="/">WK Sheet Generator</Link>
       </div>
       {!loading && <>
         <div className="navbar-center hidden lg:flex max-h-0">
           <ul className="menu menu-horizontal ">
             <li><Link href="/kanji">Kanji</Link></li>
-            <li><a>Vocabulary</a></li>
+            <li><a className='btn-disabled'>Vocabulary</a></li>
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn" onClick={() => fetchData()}>Refresh</a>
+          <a className="btn" onClick={fetchData}>Refresh</a>
         </div>
       </>}
     </div>

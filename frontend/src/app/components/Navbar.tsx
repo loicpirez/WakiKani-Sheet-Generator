@@ -16,7 +16,7 @@ const Navbar = (): JSX.Element => {
 
           {!loading && <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] shadow bg-base-100 rounded-box w-52">
             <li><Link href="/kanji">Kanji</Link></li>
-            <li><a className='btn-disabled'>Vocabulary</a></li>
+            <li><Link href="/vocabulary">Vocabulary</Link></li>
           </ul>}
         </div>
         <Link className="btn btn-ghost normal-case text-xl" href="/">WK Sheet Generator</Link>
@@ -25,7 +25,7 @@ const Navbar = (): JSX.Element => {
         <div className="navbar-center hidden lg:flex max-h-0">
           <ul className="menu menu-horizontal ">
             <li><Link href="/kanji">Kanji</Link></li>
-            <li><a className='btn-disabled'>Vocabulary</a></li>
+            <li><Link href="/vocabulary">Vocabulary</Link></li>
           </ul>
         </div>
         <div className="navbar-end">

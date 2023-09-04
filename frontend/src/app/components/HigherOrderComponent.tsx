@@ -23,7 +23,7 @@ const withDataHandling = <P extends object>(WrappedComponent: React.ComponentTyp
     } else if (loading) {
         return <LoadingPage />;
     } else if (data) {
-        return <WrappedComponent data={data} {...props} />;
+      return <WrappedComponent data={data} {...props} />;
     } else {
         fetchData();
         return <LoadingPage />;

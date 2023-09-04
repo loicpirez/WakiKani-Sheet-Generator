@@ -7,7 +7,7 @@ const Navbar = (): JSX.Element => {
   const { loading, fetchData } = useWakinakiDataContext();
 
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar shadow-sm sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors lg:z-50 lg:border-b lg:border-slate-900/10  supports-backdrop-blur:bg-white/95 ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -15,8 +15,8 @@ const Navbar = (): JSX.Element => {
           </label>
 
           {!loading && <ul tabIndex={0} className="menu menu-sm dropdown-content z-[1] shadow bg-base-100 rounded-box w-52">
-            <li><a>Kanji</a></li>
-            <li><a>Vocabulary</a></li>
+            <li><Link href="/kanji">Kanji</Link></li>
+            <li><a className='btn-disabled'>Vocabulary</a></li>
           </ul>}
         </div>
         <Link className="btn btn-ghost normal-case text-xl" href="/">WK Sheet Generator</Link>
@@ -29,7 +29,7 @@ const Navbar = (): JSX.Element => {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn" onClick={fetchData}>Refresh</a>
+          <a className="btn opacity-80" onClick={fetchData}>Refresh</a>
         </div>
       </>}
     </div>

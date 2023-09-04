@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'Hiragino Kaku Gothic Pro';
+    src: url('/fonts/Hiragino Kaku Gothic ProN W3.otf');
+}
+
+td>*>a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+reading {
+    color: white;
+    background-color: #555;
+}
+
+ja:hover, .ja:hover {
+    font-family: 'japanese';
+    font-weight: 700;
+    cursor: none;
+}
+
+ja {
+    color: white;
+    background-color: theme('colors.red.400');
+}
+
+radical {
+    color: white;
+    background-color: #0af;
+    /* background-color: theme('colors.orange.500'); */
+}
+
+kanji, .kanji {
+    color: white;
+    background-color: #f0a;
+    /* background-color: theme('colors.lime.600'); */
+}
+
+vocabulary, .vocabulary {
+    color: white;
+    background-color: #a0f;
+}
+
+.character {
+    font-size: 1.5rem;
+    line-height: 2rem;
+}
+
+.reading-type {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-style: italic;
+    font-weight: normal;
+}

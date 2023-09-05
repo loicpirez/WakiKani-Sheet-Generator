@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Modal from '../Modal';
+import validUrl from 'valid-url';
 
 // @TODO: handle multiple characters at one
 // @TODO: show every step of the stroke order
@@ -10,12 +11,34 @@ interface CharacterProps {
   character: string;
 }
 
+// @TODO: move this to a utils file
+const isValidUrl = (urlString: string): string | undefined => {
+  return validUrl.isWebUri(urlString);
+};
+
 const Character: React.FC<CharacterProps> = ({ character }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
+  const [svgData, setSvgData] = useState('');
 
-  const toggleModal = () => setIsOpen(!isOpen);
+  const toggleModal = () => {
+    if (!isValidUrl(character)) {
+      setIsOpen(!isOpen);
+    }
+  }
+
+  useEffect(() => {
+    console.log('Will fetch')
+    // if (isValidUrl(character)) {
+    //   fetch(character)
+    //     .then((response) => response.text())
+    //     .then((data) => setSvgData(data))
+    //     .catch((error) => console.error(error));
+    // }
+    // We spam the API now, for the moment no need to fetch the svg
+  }, [character]);
+
 
   useEffect(() => {
     if (isOpen) {
@@ -52,9 +75,20 @@ const Character: React.FC<CharacterProps> = ({ character }) => {
 
   return (
     <>
-      <span className='character ja' onClick={toggleModal}>
-        {character}
-      </span>
+      {
+        isValidUrl(character) &&
+        <>
+          <div className='items-center justify-center flex'>
+            <img src={character} width={25} height={25} />
+          </div>
+        </>
+      }
+      {
+        !isValidUrl(character) &&
+        <span className='character ja' onClick={toggleModal}>
+          {character}
+        </span>
+      }
       <Modal open={isOpen}>
         <div className="p-1">
           <h2 className="text-xl font-bold mb-4">Character Details</h2>

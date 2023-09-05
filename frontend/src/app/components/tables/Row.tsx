@@ -21,8 +21,13 @@ const Row: React.FC<RowProps> = ({ content, index, type }) => (
     </td>
     <td>{content.meaning.map((meaning, i) => <Meaning key={`${type}-${index}-meaning-${i}`} meaning={meaning} index={i} />)}</td>
     <td><SanitizeHTML html={content.meaning_mnemonic} /></td>
-    <td className="whitespace-nowrap">{content.reading.map((reading, i) => <Reading key={`${type}-${index}-reading-${i}`} reading={reading} index={i} type={type} />)}</td>
-    <td><SanitizeHTML html={content.reading_mnemonic} /></td>
+    {
+      type !== 'radical' &&
+      <>
+        <td className="whitespace-nowrap">{content.reading.map((reading, i) => <Reading key={`${type}-${index}-reading-${i}`} reading={reading} index={i} type={type} />)}</td>
+        <td><SanitizeHTML html={content.reading_mnemonic} /></td>
+      </>
+    }
   </tr>
 );
 export default Row

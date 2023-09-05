@@ -36,8 +36,13 @@ const Table: React.FC<TableProps> = ({ data, type }) => {
             <td>Characters</td>
             <td>Meaning</td>
             <td>Meaning Mnemonic</td>
-            <td>Reading</td>
-            <td>Reading Mnemonic</td>
+            {
+              type !== 'radical' &&
+              <>
+                <td>Reading</td>
+                <td>Reading Mnemonic</td>
+              </>
+            }
           </tr>
         </thead>
         <tbody>

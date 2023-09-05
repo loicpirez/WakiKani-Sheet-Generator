@@ -1,9 +1,11 @@
 interface ErrorPageProps {
-  error: any;
+  error: Error;
 }
 
 const ErrorPage = ({ error }: ErrorPageProps): JSX.Element => {
-  return <div>{"Error" + error ? `: ${error && error.message}` : ``}</div>;
+  return <div className='h-32 w-full flex items-center justify-center'>
+    {error && error.message}
+  </div>
 }
 
 export default ErrorPage;

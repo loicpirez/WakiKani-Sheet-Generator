@@ -3,11 +3,7 @@
 import React from 'react';
 
 interface MeaningProps {
-    meaning: {
-        accepted_answer: boolean;
-        meaning: string;
-        primary: boolean;
-    };
+    meaning: MeaningType;
     index: number;
 }
 

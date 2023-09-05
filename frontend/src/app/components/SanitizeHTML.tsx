@@ -7,11 +7,16 @@ const defaultOptions = {
     }
 };
 
-const sanitize = (dirty) => ({
+const sanitize = (dirty: string) => ({
     __html: sanitizeHtml(dirty, { ...defaultOptions })
 });
 
-const SanitizeHTML = ({ html }) => (
+
+type SanitizeHTMLProps = {
+    html: string;
+}
+
+const SanitizeHTML = ({ html }: SanitizeHTMLProps) => (
     <div dangerouslySetInnerHTML={sanitize(html)} />
 );
 

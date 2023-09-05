@@ -8,36 +8,20 @@ import Meaning from './Meaning';
 import Reading from './Reading';
 
 interface RowProps {
-  content: {
-    characters: string;
-    level: number;
-    meaning: {
-      accepted_answer: boolean;
-      meaning: string;
-      primary: boolean;
-    }[];
-    meaning_mnemonic: string;
-    reading: {
-      accepted_answer: boolean;
-      primary: boolean;
-      reading: string;
-      type: string;
-    }[];
-    reading_mnemonic: string;
-  };
+  content: BaseElementType | VocabularyElementType | RadicalsElementType;
   index: number;
-  page: 'kanji' | 'vocabulary' | 'radicals'; // @TODO: Enum
+  type: TypeElementType;
 }
 
-const Row: React.FC<RowProps> = ({ content, index, page }) => (
+const Row: React.FC<RowProps> = ({ content, index, type }) => (
   <tr key={index}>
     <td>{content.level}</td>
-    <td>
+    <td className="whitespace-nowrap">
       <Character character={content.characters} />
     </td>
-    <td>{content.meaning.map((meaning, i) => <Meaning key={`${page}-${index}-meaning-${i}`} meaning={meaning} index={i} />)}</td>
+    <td>{content.meaning.map((meaning, i) => <Meaning key={`${type}-${index}-meaning-${i}`} meaning={meaning} index={i} />)}</td>
     <td><SanitizeHTML html={content.meaning_mnemonic} /></td>
-    <td className="whitespace-nowrap">{content.reading.map((reading, i) => <Reading key={`${page}-${index}-reading-${i}`} reading={reading} index={i} />)}</td>
+    <td className="whitespace-nowrap">{content.reading.map((reading, i) => <Reading key={`${type}-${index}-reading-${i}`} reading={reading} index={i} type={type} />)}</td>
     <td><SanitizeHTML html={content.reading_mnemonic} /></td>
   </tr>
 );

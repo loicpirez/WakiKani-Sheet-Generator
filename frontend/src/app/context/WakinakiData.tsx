@@ -8,6 +8,7 @@ export const WakinakiDataContext = createContext<DataContextType>({
     data: {
         kanjis: [],
         vocabularies: [],
+        radicals: [],
     },
     error: null,
     loading: true,
@@ -23,7 +24,7 @@ export const WakinakiDataProvider = ({ children }: { children: ReactNode }) => {
         setLoading(true);
         try {
             const data = await axios.get(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3002/', {
-                timeout: 10000,
+                timeout: 50000,
             })
                 .then(response => {
                     if (response.status !== 200) {
@@ -33,8 +34,8 @@ export const WakinakiDataProvider = ({ children }: { children: ReactNode }) => {
                 });
             setData(data);
             setError(null);
-        } catch (error: any) {
-            setError(error);
+        } catch (error) {
+            setError(error as Error);
             setData(null);
         } finally {
             setLoading(false);

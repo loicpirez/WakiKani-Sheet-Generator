@@ -5,21 +5,17 @@ import ErrorPage from './ErrorPage';
 import LoadingPage from './LoadingPage';
 import { useWakinakiDataContext } from '../context/WakinakiData';
 
-interface WithDataHandlingProps {
-  data: ApiResponseType;
-  error: ApiErrorType;
-  loading: boolean;
-}
+// @TODO: replace any with the correct type
 
 const getComponentDisplayName = (WrappedComponent: React.ComponentType<any>) => {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
 
-const withDataHandling = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
-  const WithDataHandlingComponent = (props: P) => {
+const withDataHandling = <P extends any>(WrappedComponent: React.ComponentType<any>) => {
+  const WithDataHandlingComponent = (props: any) => {
     const { data, error, loading, fetchData } = useWakinakiDataContext();
-    if (error) {
-        return <ErrorPage error={error} />;
+    if (error !== null) {
+        return <ErrorPage error={error as Error} />;
     } else if (loading) {
         return <LoadingPage />;
     } else if (data) {
@@ -32,5 +28,6 @@ const withDataHandling = <P extends object>(WrappedComponent: React.ComponentTyp
   WithDataHandlingComponent.displayName = `WithDataHandling(${getComponentDisplayName(WrappedComponent)})`;
   return WithDataHandlingComponent;
 };
+
 
 export default withDataHandling;

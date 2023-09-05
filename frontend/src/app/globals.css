@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ::selection {
+    color: hsl(var(--pc));
+    background: hsl(var(--p));
+} */
+
 @font-face {
     font-family: 'Hiragino Kaku Gothic Pro';
     src: url('/fonts/Hiragino Kaku Gothic ProN W3.otf');

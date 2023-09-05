@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${font.className} `}>
         <WakinakiDataProvider>
-          <div id="app" className="h-screen flex flex-col">
+          <div id="app" className="h-screen flex flex-col selection:bg-sky-950/50 selection:text-white">
             <div id="header" className='sticky top-0 z-50'>
               <Navbar />
             </div>

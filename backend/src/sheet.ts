@@ -1,5 +1,5 @@
 import { type WKAssignment, type WKSubject } from '@bachmacintosh/wanikani-api-types'
-import { type SheetInterface, type SheetBaseElement, type SheetVocabularyElement } from './ts/interfaces/sheet.interfaces'
+import { type SheetInterface, type SheetBaseElement, type SheetVocabularyElement, type SheetRadicalElement } from './ts/interfaces/sheet.interfaces'
 import type WaniKaniInterface from './ts/interfaces/wanikani.interfaces'
 
 const createObject = (assignment: WKAssignment, subjectById: WKSubject | undefined): SheetBaseElement => ({
@@ -18,6 +18,7 @@ const createSheet = async (wakinaki: WaniKaniInterface): Promise<SheetInterface>
   const subjectsMap = new Map(subjects.map(subject => [subject.id, subject]))
   const kanjis: SheetBaseElement[] = []
   const vocabularies: SheetVocabularyElement[] = []
+  const radicals: SheetRadicalElement[] = []
 
   assignments.forEach(assignment => {
     const subjectById: WKSubject | undefined = subjectsMap.get(assignment.data.subject_id)
@@ -37,12 +38,22 @@ const createSheet = async (wakinaki: WaniKaniInterface): Promise<SheetInterface>
         composition,
         partsOfSpeech: subjectById?.data.parts_of_speech
       })
+    } else if (assignment.data.subject_type === 'radical') {
+      const radicalObject = createObject(assignment, subjectById)
+
+      radicalObject.characters = subjectById?.data?.characters ?? subjectById?.data?.character_images?.[0]?.url ?? null
+
+      radicals.push({
+        ...radicalObject,
+        character_is_url: subjectById?.data?.characters === null
+      })
     }
   })
 
   return {
     kanjis,
-    vocabularies
+    vocabularies,
+    radicals
   }
 }
 

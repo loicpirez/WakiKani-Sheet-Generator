@@ -21,9 +21,14 @@ interface SheetVocabularyElement extends SheetBaseElement {
   partsOfSpeech: string[] | undefined
 }
 
+interface SheetRadicalElement extends SheetBaseElement {
+  character_is_url: boolean
+}
+
 interface SheetInterface {
   kanjis: SheetBaseElement[]
   vocabularies: SheetVocabularyElement[]
+  radicals: SheetRadicalElement[]
 }
 
-export type { SheetBaseElement, SheetVocabularyElement, SheetInterface }
+export type { SheetBaseElement, SheetVocabularyElement, SheetInterface, SheetRadicalElement }

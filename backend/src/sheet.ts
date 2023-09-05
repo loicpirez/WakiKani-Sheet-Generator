@@ -40,12 +40,17 @@ const createSheet = async (wakinaki: WaniKaniInterface): Promise<SheetInterface>
       })
     } else if (assignment.data.subject_type === 'radical') {
       const radicalObject = createObject(assignment, subjectById)
+      const characterIsUrl = subjectById?.data?.characters === null
 
-      radicalObject.characters = subjectById?.data?.characters ?? subjectById?.data?.character_images?.[0]?.url ?? null
+      if (characterIsUrl) {
+        const url = subjectById?.data?.character_images?.find((item) => item.content_type === 'image/png')?.url
+
+        radicalObject.characters = subjectById?.data?.characters ?? url
+      }
 
       radicals.push({
         ...radicalObject,
-        character_is_url: subjectById?.data?.characters === null
+        character_is_url: characterIsUrl
       })
     }
   })

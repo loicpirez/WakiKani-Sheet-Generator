@@ -20,25 +20,12 @@ const Character: React.FC<CharacterProps> = ({ character }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState('');
   const [loading, setLoading] = useState(false);
-  const [svgData, setSvgData] = useState('');
 
   const toggleModal = () => {
     if (!isValidUrl(character)) {
       setIsOpen(!isOpen);
     }
   }
-
-  useEffect(() => {
-    console.log('Will fetch')
-    // if (isValidUrl(character)) {
-    //   fetch(character)
-    //     .then((response) => response.text())
-    //     .then((data) => setSvgData(data))
-    //     .catch((error) => console.error(error));
-    // }
-    // We spam the API now, for the moment no need to fetch the svg
-  }, [character]);
-
 
   useEffect(() => {
     if (isOpen) {
@@ -77,11 +64,9 @@ const Character: React.FC<CharacterProps> = ({ character }) => {
     <>
       {
         isValidUrl(character) &&
-        <>
-          <div className='items-center justify-center flex'>
-            <img src={character} width={25} height={25} />
-          </div>
-        </>
+        <div className='items-center justify-center flex'>
+          <img src={character} width={25} height={25} />
+        </div>
       }
       {
         !isValidUrl(character) &&
